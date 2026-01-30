@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'SpaceMono-BoldItalic';
+    src: url('fonts/SpaceMono-BoldItalic.woff2') format('woff2'), /* Chemin relatif au CSS */
+         url('fonts/SpaceMono-BoldItalic.woff') format('woff');
+    font-weight: 700; /* Le poids de la police (ex: Regular) */
+    font-style: normal;
+    font-display: swap; /* TRÈS important pour l'affichage et l'expérience utilisateur */
+}
+@font-face {
+    font-family: 'SpaceMono-Italic';
+    src: url('fonts/SpaceMono-Italic.woff2') format('woff2'), /* Chemin relatif au CSS */
+         url('fonts/SpaceMono-Italic.woff') format('woff');
+    font-weight: 400; /* Le poids de la police (ex: Regular) */
+    font-style: normal;
+    font-display: swap; /* TRÈS important pour l'affichage et l'expérience utilisateur */
+}
+@font-face {
+    font-family: 'SpaceMono-Regular';
+    src: url('fonts/SpaceMono-Regular.woff2') format('woff2'), /* Chemin relatif au CSS */
+         url('fonts/SpaceMono-Regular.woff') format('woff');
+    font-weight: 400; /* Le poids de la police (ex: Regular) */
+    font-style: normal;
+    font-display: swap; /* TRÈS important pour l'affichage et l'expérience utilisateur */
+}
+@font-face {
+    font-family: 'Poppins-Light';    
+    src: url('fonts/Poppins-Light.woff2') format('woff2'), /* Chemin relatif au CSS */
+         url('fonts/Poppins-Light.woff') format('woff');
+    font-weight: 300; /* Le poids de la police (ex: Regular) */
+    font-style: normal;
+    font-display: swap; /* TRÈS important pour l'affichage et l'expérience utilisateur */
+}

@@ -1,0 +1,89 @@
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+} 
+main {
+    width: 100%;
+    margin-right: 50px;
+    margin-left: 50px;
+    min-height: calc(100vh - 120px);
+    background-color: #FFFFFF;
+}
+html{
+    margin:0px !important;
+    padding:0px !important ;
+}
+
+.nav_menu a, .footer_menu a {
+    text-decoration: none;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+    text-transform: uppercase;
+}
+.nav_menu ul, .footer_menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu-item-text a {
+    /* Supprime le soulignement et change la couleur */
+    text-decoration: none;
+    color: inherit; /* Utilise la couleur du texte normal du footer */
+    cursor: default; /* Change le curseur pour montrer que ce n'est pas un lien */
+    pointer-events: none; /* Empêche tout clic sur l'élément <a> */
+}
+.site_header {
+    width: 100%;
+    max-width: 1440px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+}
+.nav_logo {
+    width: 20%;
+    padding-left: 50px;
+} 
+.nav_menu {
+    width: 30%;
+    padding-right: 50px;
+}
+
+.footer_content {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: black;
+}
+.footer_menu {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.vide, .a-propos-main{
+    width:90%;
+    margin:75px;
+    margin-top:50px;
+    min-height:500px;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-size: 13px;
+    color: #000000;
+  
+    header, h2, h1{
+      text-transform: uppercase;
+    }
+}
