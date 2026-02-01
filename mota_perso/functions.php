@@ -93,5 +93,13 @@ function expose_acf_fields_in_rest() {
         },
         'schema' => null,
     ));
+
+    //MON HERO HEADER NE S4AFFICHE PAS ET RENVOIE IMAGE SOURCE VIDE alors que même ACF + même code HomePage + même CSS
+    //register_rest_field('heroheader', 'acf', array(
+    //    'get_callback' => function($post) {
+    //        return get_fields($post['id']);
+    //    },
+    //    'schema' => null,
+    //));
 }
 add_action('rest_api_init', 'expose_acf_fields_in_rest');

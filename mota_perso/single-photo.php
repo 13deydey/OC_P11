@@ -64,11 +64,13 @@ get_header();
                 // On récupère l'URL de l'image suivante
                 $next_thumb_url = get_the_post_thumbnail_url( $next_post->ID, 'thumbnail' );
             ?>
+            // Affichage de l'aperçu de l'image suivante cliquable
                 <a href="<?php echo get_permalink($next_post->ID); ?>" class="nav-link-next">
                     <img src="<?php echo $next_thumb_url; ?>" alt="Suivant" class="preview_image">
                 </a>
             <?php endif; ?>
 
+            // Affichage des flèches de navigation cliquables via les posts précédent et suivant WordPress
             <div class="arrows_navigation">
                 <?php if ( !empty($prev_post) ): ?>
                     <a href="<?php echo get_permalink($prev_post->ID); ?>">
