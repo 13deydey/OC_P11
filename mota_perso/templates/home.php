@@ -21,22 +21,65 @@ get_header();
     <div class="galerie_filtre">
         <div class="filter_gauche">
             <div class="category_filter">
-            <!--//filtre à récupérer dynamiquement via la taxnomie -> name = categorie-->
-                <p>Catégorie :</p>
+            <!--//filtre à récupérer dynamiquement via la taxnomie categorie-->
                 <select id="categorySelect">
-                    <option value="all">Toutes</option>
+                    <option value="">Catégories</option>
                     <?php
                     $categories = get_terms( array(
                         'taxonomy' => 'categorie',
+                        'orderby'  => 'name',
+                        'order'    => 'ASC',
                         'hide_empty' => true,
                     ) );
 
                     foreach ( $categories as $category ) {
-                        echo '<option value="' . esc_attr( $category->slug ) . '">' . esc_html( $category->name ) . '</option>';
+                        echo '<option value="' . esc_attr( $category->term_id ) . '">' . esc_html( $category->name ) . '</option>';
                     }
                     ?>
                 </select>
             </div>
+            <div class="format_filter">
+            <!--//filtre à récupérer dynamiquement via la taxnomie Format-->
+                <select id="formatSelect">
+                    <option value="">Formats</option>
+                    <?php
+                    $formats = get_terms( array(
+                        'taxonomy' => 'photo_formats',
+                        'orderby'  => 'name',
+                        'order'    => 'ASC',
+                        'hide_empty' => true,
+                    ) );
+
+                    foreach ( $formats as $format ) {
+                        echo '<option value="' . esc_attr( $format->term_id ) . '">' . esc_html( $format->name ) . '</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+
+        </div>
+        <div class="filter_droite">
+            <select id="anneeSelect">
+                <option value="">Années</option>
+                <?php
+                    $anneesCroissantes = get_terms( array(
+                        'taxonomy' => 'annee',
+                        'orderby'  => 'date',
+                        'order'    => 'ASC',
+                        'hide_empty' => true,
+                    ) );
+                    $anneesDecroissantes = get_terms( array(
+                        'taxonomy' => 'annee',
+                        'orderby'  => 'date',
+                        'order'    => 'DESC',
+                        'hide_empty' => true,
+                    ) );
+                ?>
+                    <option value="$anneesCroissante">Années (croissante)</option>
+                    <option value="$anneesDecroissante">Années (décroissante)</option>
+                
+            </select>
+
         </div>
     </div>
 

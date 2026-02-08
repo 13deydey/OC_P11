@@ -77,9 +77,6 @@ titreModale.innerHTML = `
 `;
 
 
-/* TRY AVEC LE JAVASCRIPT POUR LA GALERIE PHOTOS DE L'ANCIEN PROJET MOTA MAIS 0 IMAGE APPARENTE 
-POURTANT, NE ME R2POND PAS "Aucune photo trouvée." prévu à la ligne ci-dssous 112-116 */
-
 //GALERIE ACCUEIL DES PHOTOS _ CPT UI 
 let currentPage = 1;
 const postsPerPage = 8;
@@ -88,7 +85,7 @@ const gallery = document.querySelector('#gallery');
 const loadMoreButton = document.querySelector('.load_more_button');
 
 // Fonction pour gérer le chargement (initial ou suivant)
-function loadPhotos(resetGallery = false) {
+function loadPhotos(resetGallery = false, categoryId = null, formatId = null) {
 
     let totalPages ; // Variable pour stocker le total des pages
     
@@ -98,8 +95,17 @@ function loadPhotos(resetGallery = false) {
         gallery.innerHTML = ''; // Vider la galerie
     }
 
-    //Utilisation de l'API REST pour TOUTES les requêtes
+    // --- CONSTRUCTION DE L'URL DYNAMIQUE ---
+    
     let restUrl = `/wp-json/wp/v2/photo?per_page=${postsPerPage}&page=${currentPage}`;
+    if (categoryId) {
+        restUrl += `&categorie=${categoryId}`;
+    }
+    if (formatId) {
+        restUrl += `&photo_formats=${formatId}`;
+    }
+    console.log("Requête envoyée : ", restUrl);
+    //Utilisation de l'API REST pour TOUTES les requêtes
     fetch(restUrl)
     .then(response => {
         //Récupérer le total des pages (X-WP-TotalPages) dans le header
@@ -175,6 +181,7 @@ function loadPhotos(resetGallery = false) {
 
 let currentIndex = 0;
 const galleryItems = [];
+
 
 // Fonction pour ouvrir la lightbox
 function openLightbox(index) {
@@ -281,6 +288,46 @@ function initGalleryListeners() {
     });
 }
 
+
+// Initialisation des écouteurs pour les éléments de filtre
+// Sélection des menus de filtre (catégorie et format) selon les ID du template
+const selectCat = document.querySelector('#categorySelect'); 
+const selectFormat = document.querySelector('#formatSelect');
+
+function declencherFiltre() {
+    let catId;
+        if(selectCat) {
+            catId = selectCat.value;
+            console.log("Catégorie sélectionnée :", catId);
+        } else {
+            catId = null;
+        }   
+
+    let formatId;
+        if(selectFormat) {
+            formatId = selectFormat.value;
+            console.log("Format sélectionné :", formatId);
+        } else {
+            formatId = null;
+        }
+    
+    // On appelle loadPhotos avec resetGallery = true pour vider la grille
+    loadPhotos(true, catId, formatId);
+}
+
+// On écoute le changement
+if(selectCat) selectCat.addEventListener('change', declencherFiltre);
+if(selectFormat) selectFormat.addEventListener('change', declencherFiltre);
+
+// Et l'écouteur au bouton charger plus
+if (loadMoreButton) {
+    loadMoreButton.addEventListener('click', () => {
+        const catId = selectCategory ? selectCategory.value : null;
+        const formatId = selectFormat ? selectFormat.value : null;
+        loadPhotos(false, catId, formatId);
+    });
+}
+
 // Initialisation du chargement des photos
 if (gallery) {
     // 1. Chargement Initial (Page 1)
@@ -293,3 +340,4 @@ if (loadMoreButton) {
         loadPhotos(); 
     });
 }
+

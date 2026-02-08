@@ -62,6 +62,7 @@ function mon_theme_enqueue_scripts() {
     // Cette fonction rend l'URL Ajax accessible dans le JS sous l'objet 'monThemeAjax'
     wp_localize_script('mon-theme-script', 'monThemeAjax', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
+        'rest_url' => esc_url_raw( rest_url() ),
         'nonce'   => wp_create_nonce('mon_theme_contact_nonce') // Optionnel: pour plus de sécurité
     ));
 }
@@ -126,3 +127,4 @@ function register_rest_categorie() {
     ));
 };
 add_action('rest_api_init', 'register_rest_categorie');
+
