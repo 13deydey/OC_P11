@@ -93,13 +93,36 @@ function expose_acf_fields_in_rest() {
         },
         'schema' => null,
     ));
-
-    //MON HERO HEADER NE S4AFFICHE PAS ET RENVOIE IMAGE SOURCE VIDE alors que même ACF + même code HomePage + même CSS
-    //register_rest_field('heroheader', 'acf', array(
-    //    'get_callback' => function($post) {
-    //        return get_fields($post['id']);
-    //    },
-    //    'schema' => null,
-    //));
 }
 add_action('rest_api_init', 'expose_acf_fields_in_rest');
+
+
+// Expose featured image URL in REST API
+function register_rest_images(){
+    register_rest_field( array('photo'), // Nom de ton CPT
+        'featured_image_url', // Nom du champ en JS
+        array(
+            'get_callback'    => function($object, $field_name, $request) {
+                if ($object['featured_media']) {
+                    $img = wp_get_attachment_image_src($object['featured_media'], 'full');
+                    return $img[0];
+                }
+                return false;
+            },
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
+}
+add_action('rest_api_init', 'register_rest_images' );
+
+function register_rest_categorie() {    
+    register_rest_field('photo', 'categorie_name', array(
+        'get_callback' => function($post_array) {
+            $terms = get_the_terms($post_array['id'], 'categorie'); // Remplace 'categorie' par le slug de ta taxo
+            return !empty($terms) ? $terms[0]->name : '';
+        },
+        'schema' => null,
+    ));
+};
+add_action('rest_api_init', 'register_rest_categorie');

@@ -397,3 +397,221 @@ body.no-scroll {
     }
   }
   
+/*CSS POUR SECTIONS GALERIE FILTRES*/
+.galerie_section{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 150px 100px 150px; 
+  }
+  .galerie_filtre{
+    width: 100%;
+    display:flex;
+    justify-content: space-between
+  }
+  .filter_gauche{
+    display: flex;
+  }
+  
+  /*CSS POUR FILTRES CAT2GORIES*/
+  .selected_category, .selected_format, .selected_date {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #000000;
+    border: solid 1px #000000;
+    padding: 8px 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: start;
+    p{
+      text-transform: uppercase;
+      font-size:12px;
+      font-weight:500;
+      font-family: 'Poppins', sans-serif;
+      padding:0;
+      margin:0;
+      color: #000000 !important;
+      display: flex;
+      
+    }
+  }
+  .options_category, .options_format, .options_date{
+    display: none;
+  }
+  .options_category.active, .options_format.active, .options_date.active{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    border: solid 1px #000000;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .hide {
+    display: none !important; /* Si vous devez écraser des styles de thème */
+    opacity: 0; 
+    pointer-events: none; /* Empêche tout clic quand c'est masqué */
+  }
+  .visible {
+    display: flex !important; /* Maintient le !important si nécessaire pour l'écrasement */
+    opacity: 1 !important;
+    pointer-events: auto; /* Permet les interactions */
+  }
+  
+  /*CSS POUR GALERIE PHOTOS*/
+  
+  .galerie_photos{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 50px;
+  
+    article{
+      width:564px;
+      margin:5px;
+      height: 495px;
+      position: relative; /* Pour que le positionnement absolu soit relatif à ce conteneur */
+      display: inline-block;
+  
+      img{
+        width:564px;
+        height: 495px;
+        object-fit: cover;
+      }
+    }
+  }
+  
+  .load_more_button{
+    width: 272px;
+    height: 50px;
+    background-color: #D8D8D8;
+    border-radius: 2px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    font-family: 'SpaceMono-Regular', monospace;
+    font-weight: 400;
+    font-size: 12px;
+    margin-top:50px;
+    cursor: pointer;
+  }
+  
+  /*CSS POUR INFO PHOTO AU SURVOL*/
+  /* Masquer les événements quand il est invisible */
+  .info_overlay:not(.visible) {
+    pointer-events: none; /* Désactive les clics quand l'opacité est à 0 */
+  }
+  
+  /* 🚨 Réactiver les événements quand il est visible */
+  .info_overlay.visible, 
+  .gallery-item:hover .info_overlay { /* Utilisez le survol du parent pour la visibilité si vous n'utilisez pas la classe 'visible' */
+    opacity: 1;
+    pointer-events: auto; /* Permet les clics */
+  }
+  .info_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 10px;
+    overflow: auto;  /* Si contenu dépasse */
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-size: 14px;  
+    color: #FFFFFF;
+    text-transform: uppercase;
+  }
+  /*.gallery-item:hover*/
+  .info_overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    z-index:10;
+  
+    .apercu{
+      width:34px;
+      height: 34px;
+      align-self: flex-end;
+      z-index:21;
+    }
+    a{
+      align-self: center;
+      z-index : 20;
+    }
+    .pleinEcran{
+      width: 46px;
+      height: 32px;
+      z-index: 20;
+    }
+    .infos-content{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  
+  
+  .lightbox {
+    position: fixed;       /* Fixe la lightbox par rapport à la fenêtre */
+    top: 50%;             /* Centre verticalement */
+    left: 50%;            /* Centre horizontalement */
+    transform: translate(-50%, -50%); /* Décale pour centrage exact */
+    background:  rgba(0,0,0,0.0);   /* Fond blanc de la lightbox */
+    padding: 20px;
+    z-index: 1001;        /* Au-dessus du fond */
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;       /* Scroll interne si contenu trop grand */
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-size: 14px;  
+    color: #FFFFFF;
+    text-transform: uppercase;
+    width: 70%;
+    height: 90%;
+  
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+      img{
+        width: 565px;
+        height: 460px;
+        object-fit: cover;
+      }
+    .light_rang2{
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-size: 14px;  
+    color: #FFFFFF;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    }
+    .fleche_prec, .fleche_suiv{
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      justify-content: space-around;
+      align-items: center;
+      i{
+        width:30px;
+      }
+    }
+  }
+    
