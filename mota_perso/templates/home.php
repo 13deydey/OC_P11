@@ -23,7 +23,7 @@ get_header();
             <div class="category_filter">
             <!--//filtre à récupérer dynamiquement via la taxnomie categorie-->
                 <select id="categorySelect">
-                    <option value="">Catégories</option>
+                    <option value="" selected disabled>Catégories</option>
                     <?php
                     $categories = get_terms( array(
                         'taxonomy' => 'categorie',
@@ -41,7 +41,7 @@ get_header();
             <div class="format_filter">
             <!--//filtre à récupérer dynamiquement via la taxnomie Format-->
                 <select id="formatSelect">
-                    <option value="">Formats</option>
+                    <option value="" selected disabled>Formats</option>
                     <?php
                     $formats = get_terms( array(
                         'taxonomy' => 'photo_formats',
@@ -59,27 +59,11 @@ get_header();
 
         </div>
         <div class="filter_droite">
-            <select id="anneeSelect">
-                <option value="">Années</option>
-                <?php
-                    $anneesCroissantes = get_terms( array(
-                        'taxonomy' => 'annee',
-                        'orderby'  => 'date',
-                        'order'    => 'ASC',
-                        'hide_empty' => true,
-                    ) );
-                    $anneesDecroissantes = get_terms( array(
-                        'taxonomy' => 'annee',
-                        'orderby'  => 'date',
-                        'order'    => 'DESC',
-                        'hide_empty' => true,
-                    ) );
-                ?>
-                    <option value="$anneesCroissante">Années (croissante)</option>
-                    <option value="$anneesDecroissante">Années (décroissante)</option>
-                
+            <select id="dateSelect">
+                    <option value="" selected disabled>Trier par</option>           <!--selected = option par défaut, disabled = option non recliquable-->
+                    <option value="desc">Du plus récent au plus ancien</option>
+                <option value="asc">À partir des plus anciennes</option>
             </select>
-
         </div>
     </div>
 

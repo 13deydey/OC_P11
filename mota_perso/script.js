@@ -85,7 +85,7 @@ const gallery = document.querySelector('#gallery');
 const loadMoreButton = document.querySelector('.load_more_button');
 
 // Fonction pour gérer le chargement (initial ou suivant)
-function loadPhotos(resetGallery = false, categoryId = null, formatId = null) {
+function loadPhotos(resetGallery = false, categoryId = null, formatId = null, sortOrder = '') {
 
     let totalPages ; // Variable pour stocker le total des pages
     
@@ -95,16 +95,31 @@ function loadPhotos(resetGallery = false, categoryId = null, formatId = null) {
         gallery.innerHTML = ''; // Vider la galerie
     }
 
+    // Définition des variables d'ordre et de tri par date par défaut
+    let finalOrder = 'desc'; // Ordre décroissant par défaut
+    let finalOrderBy = 'id';  // Tri par ID par défaut (ordre de création)
+
+    // Si l'utilisateur a choisi un ordre (asc ou desc) dans le menu
+    if (sortOrder !== '' && sortOrder !== null) {
+        finalOrder = sortOrder;
+        // Si l'utilisateur trie, on trie généralement par date
+        finalOrderBy = 'date'; 
+    }
+
     // --- CONSTRUCTION DE L'URL DYNAMIQUE ---
-    
     let restUrl = `/wp-json/wp/v2/photo?per_page=${postsPerPage}&page=${currentPage}`;
-    if (categoryId) {
-        restUrl += `&categorie=${categoryId}`;
-    }
-    if (formatId) {
-        restUrl += `&photo_formats=${formatId}`;
-    }
-    console.log("Requête envoyée : ", restUrl);
+    //Ajout paramètre filtres si présents issus de taxnomies ACF
+        if (categoryId) {
+            restUrl += `&categorie=${categoryId}`;
+        }
+        if (formatId) {
+            restUrl += `&photo_formats=${formatId}`;
+        }
+    // Ajout des paramètres de tri (orderby et order) selon les choix de l'utilisateur
+            // Si l'utilisateur n'a rien touché, ce sera : &orderby=id&order=desc
+    restUrl += `&orderby=${finalOrderBy}&order=${finalOrder}`;
+    console.log("URL de tri :", restUrl);
+
     //Utilisation de l'API REST pour TOUTES les requêtes
     fetch(restUrl)
     .then(response => {
@@ -293,6 +308,7 @@ function initGalleryListeners() {
 // Sélection des menus de filtre (catégorie et format) selon les ID du template
 const selectCat = document.querySelector('#categorySelect'); 
 const selectFormat = document.querySelector('#formatSelect');
+const selectDate = document.querySelector('#dateSelect');
 
 function declencherFiltre() {
     let catId;
@@ -311,13 +327,20 @@ function declencherFiltre() {
             formatId = null;
         }
     
+    let choixTri;
+        if(selectDate) {
+            choixTri = selectDate.value;
+            console.log("Choix de tri par date :", choixTri);
+        } else {
+            choixTri = '';
+        }
     // On appelle loadPhotos avec resetGallery = true pour vider la grille
-    loadPhotos(true, catId, formatId);
+    loadPhotos(true, catId, formatId, choixTri);
 }
-
 // On écoute le changement
 if(selectCat) selectCat.addEventListener('change', declencherFiltre);
 if(selectFormat) selectFormat.addEventListener('change', declencherFiltre);
+if(selectDate) selectDate.addEventListener('change', declencherFiltre);
 
 // Et l'écouteur au bouton charger plus
 if (loadMoreButton) {
