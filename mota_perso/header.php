@@ -19,12 +19,19 @@
         </div>
         
         <nav id="site-navigation" class="nav_menu" role="navigation">
+            <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
             <?php
             wp_nav_menu( array(
                 'theme_location' => 'primary', // L'identifiant (slug) que vous avez déclaré dans functions.php
                 'container'      => false,     // Ne pas envelopper le menu dans un div (utilise directement <ul>)
                 'menu_class'     => 'main-menu', // La classe CSS appliquée au <ul> du menu
                 'depth'          => 2,         // Niveau de profondeur autorisé (ex: 2 pour sous-menus)
+                'container'      => 'div',
+                'container_class'=> 'nav-menu-container',
             ) );
             ?>
         </nav>

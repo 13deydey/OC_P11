@@ -364,3 +364,22 @@ if (loadMoreButton) {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuContainer = document.querySelector('.nav-menu-container');
+
+    if (menuToggle && menuContainer) {
+        menuToggle.addEventListener('click', function() {
+            // On ajoute ou retire la classe 'is-open'
+            menuContainer.classList.toggle('is-open');
+            document.body.classList.add('no-scroll');
+            
+            // Accessibilité : on change l'état du bouton
+            const isOpen = menuContainer.classList.contains('is-open');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+            
+            // Optionnel : on change l'icône du burger en croix
+            menuToggle.classList.toggle('active');
+        });
+    }
+});
