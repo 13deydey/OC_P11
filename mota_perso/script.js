@@ -345,7 +345,7 @@ if(selectDate) selectDate.addEventListener('change', declencherFiltre);
 // Et l'écouteur au bouton charger plus
 if (loadMoreButton) {
     loadMoreButton.addEventListener('click', () => {
-        const catId = selectCategory ? selectCategory.value : null;
+        const catId = selectCat ? selectCat.value : null;
         const formatId = selectFormat ? selectFormat.value : null;
         loadPhotos(false, catId, formatId);
     });

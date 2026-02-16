@@ -1,11 +1,5 @@
  
-<section class="modale-contact" id="modale-contact">
-    <!--En display:none-->
-    <div class="modale-content">
-        <div class="titre">CONTACT</div>
-        <?php echo do_shortcode('[contact-form-7 id="dc1223f" title="ModaleContact"]'); ?>
-    </div>
-</section>
+<?php get_template_part( 'templates/modale', 'contact' ); ?><!-- intègre le template modale-contact.php -->
 
 <script src="<?php echo get_template_directory_uri(); ?>/script.js"></script>
 <!-- intègre le script JS -->
