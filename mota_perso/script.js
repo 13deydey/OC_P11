@@ -364,6 +364,7 @@ if (loadMoreButton) {
     });
 }
 
+//MENU TOGLLE POUR MOBILE
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const menuContainer = document.querySelector('.nav-menu-container');
