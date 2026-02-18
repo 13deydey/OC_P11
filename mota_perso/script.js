@@ -43,7 +43,6 @@ if (contactForm) {
     //2. sinon, le formulaire est valide ou n'a pas encore été soumis et agit comme d'habitude
     else {
         console.log("Le formulaire est valide (ou n'a pas encore été soumis).");
-        // Placez ici le code à exécuter si la classe n'est pas présente
     }
 }
 
@@ -97,12 +96,12 @@ function loadPhotos(resetGallery = false, categoryId = null, formatId = null, so
 
     // Définition des variables d'ordre et de tri par date par défaut
     let finalOrder = 'desc'; // Ordre décroissant par défaut
-    let finalOrderBy = 'id';  // Tri par ID par défaut (ordre de création)
+    let finalOrderBy = 'id';  // Tri par ID par défaut (ordre de création du post)
 
     // Si l'utilisateur a choisi un ordre (asc ou desc) dans le menu
     if (sortOrder !== '' && sortOrder !== null) {
         finalOrder = sortOrder;
-        // Si l'utilisateur trie, on trie généralement par date
+        // Si l'utilisateur trie, on trie par date
         finalOrderBy = 'date'; 
     }
 
@@ -279,7 +278,7 @@ function initGalleryListeners() {
     galleryItems.forEach(item => {
         const infoOverlay = item.querySelector('.info_overlay');
 
-        // C'est ici que vous vérifiez si l'écouteur n'est pas déjà là (bonne pratique)
+        // Vérifier si les écouteurs ont déjà été ajoutés pour cet élément pour éviter les doublons
         if (!item.dataset.listenersAdded) { 
             // 1. Écouteurs de survol
             item.addEventListener('mouseenter', () => {
@@ -344,10 +343,13 @@ if(selectDate) selectDate.addEventListener('change', declencherFiltre);
 
 // Et l'écouteur au bouton charger plus
 if (loadMoreButton) {
-    loadMoreButton.addEventListener('click', () => {
+    loadMoreButton.addEventListener('click', function(e) {
+        e.preventDefault();
+
         const catId = selectCat ? selectCat.value : null;
         const formatId = selectFormat ? selectFormat.value : null;
-        loadPhotos(false, catId, formatId);
+        const choixTri = selectDate ? selectDate.value : '';
+        loadPhotos(false, catId, formatId, choixTri);
     });
 }
 
@@ -355,13 +357,6 @@ if (loadMoreButton) {
 if (gallery) {
     // 1. Chargement Initial (Page 1)
     loadPhotos(); 
-}
-if (loadMoreButton) {
-    // 2. Écouteur du Bouton (Charge la page suivante)
-    loadMoreButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        loadPhotos(); 
-    });
 }
 
 //MENU TOGLLE POUR MOBILE
@@ -377,6 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Accessibilité : on change l'état du bouton
             const isOpen = menuContainer.classList.contains('is-open');
+            //aria-expanded doit être à true lorsque le menu est ouvert et false lorsqu'il est fermé, pour indiquer l'état du menu aux technologies d'assistance
             menuToggle.setAttribute('aria-expanded', isOpen);
             
             // Optionnel : on change l'icône du burger en croix
